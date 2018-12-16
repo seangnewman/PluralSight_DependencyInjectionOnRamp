@@ -8,7 +8,17 @@ namespace PersonRepository.Service
 {
     public class ServiceRepository : IPersonRepository
     {
-        PersonServiceClient ServiceProxy = new PersonServiceClient();
+        //PersonServiceClient ServiceProxy = new PersonServiceClient();
+        private IPersonService __serviceProxy;
+
+        public IPersonService ServiceProxy
+        {
+            get  =>  __serviceProxy == null? new PersonServiceClient(): __serviceProxy;
+            
+            set  =>  __serviceProxy = value; 
+        }
+
+
 
         public IEnumerable<Person> GetPeople()
         {
